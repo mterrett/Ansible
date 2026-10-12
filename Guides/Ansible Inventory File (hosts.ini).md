@@ -117,3 +117,36 @@ webservers:
 ```
 
 The example above demonstrates that the *production_servers* group belongs to both the overarching *webservers* metagroup and the *production_servers* metagroup. 
+
+## Variables
+
+Variables set values such as the IP address, FQDN, OS, SSH user for managed nodes. This is done so they do not need to be passed into Ansible commands.
+
+A variable can be added to specific child items like the following:
+
+```
+webservers:
+  hosts:
+    webserver01:
+      ansible_host: 192.0.2.140
+      http_port: 80
+    webserver02:
+      ansible_host: 192.0.2.150
+      http_port: 443
+```
+
+They can also be set across the entire group, like such:
+```
+webservers:
+  hosts:
+    webserver01:
+      ansible_host: 192.0.2.140
+      http_port: 80
+    webserver02:
+      ansible_host: 192.0.2.150
+      http_port: 443
+  vars:
+    ansible_user: my_server_user
+```
+
+It's easy to see that the *ansible_user my_server_user* is a bariable set across the entire webservers group. Whilst the *http_port* is only set for the webserver host it belongs to.
