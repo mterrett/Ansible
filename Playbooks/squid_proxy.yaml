@@ -1,0 +1,20 @@
+- name: Squid Proxy Install
+  hosts: TESTING
+  become: true
+  tasks:
+    - name: Refresh APT Packages Before Install
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: no
+        cache_valid_time: 3600
+
+    - name: Install latest Squid
+      ansible.builtin.apt:
+        name: squid
+        state: latest
+
+    - name: Make sure Squid is stopped and won't start on boot
+      ansible.builtin.systemd_service:
+        name: squid
+        state: stopped
+        enabled: false

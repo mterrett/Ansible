@@ -1,4 +1,4 @@
-- name: hello world
+- name: Hello World
   hosts: TESTING
   tasks:
    - name: Ping my hosts
